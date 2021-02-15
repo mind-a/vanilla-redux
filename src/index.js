@@ -25,7 +25,7 @@ const reducer = (state=[], action) => {
         case ADD_TODO:
             return [ {text: action.text, id: Date.now() }, ...state];
         case DELETE_TODO:
-            return [];
+            return state.filter(toDo => toDo.id !== action.id);
             //...은 ES6 spread
             //means : 모든 state array의 contents
         default:
@@ -45,7 +45,7 @@ const dispatchAddToDo = text => {
 }
 
 const dispatchDeleteToDo = e => {
-    const id = e.target.parentNode.id;
+    const id = parseInt(e.target.parentNode.id);
     store.dispatch(deleteToDo(id));
 }
 
